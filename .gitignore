@@ -2,3 +2,8 @@ node_modules
 dist
 .env
 *.tsbuildinfo
+tools/windows-launcher/**/bin/
+tools/windows-launcher/**/obj/
+tools/windows-launcher/**/*.user
+tools/windows-launcher/**/build/
+tools/windows-launcher/.vs/
