@@ -1,0 +1,91 @@
+services:
+  agent-service:
+    build:
+      context: .
+      dockerfile: apps/agent-service/Dockerfile
+    environment:
+      - AGENT_SERVICE_PORT=3002
+      - AGENT_REPOSITORY=${AGENT_REPOSITORY:-json}
+      - NOTION_TOKEN=${NOTION_TOKEN:-}
+      - NOTION_DATABASE_ID=${NOTION_DATABASE_ID:-}
+    volumes:
+      - agent-data:/app/data
+    ports:
+      - "${AGENT_SERVICE_PORT:-3002}:3002"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3002/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: apps/auth-service/Dockerfile
+    environment:
+      - AUTH_SERVICE_PORT=3003
+      - AUTH_ADMIN_PASSWORD=${AUTH_ADMIN_PASSWORD:-admin}
+    ports:
+      - "${AUTH_SERVICE_PORT:-3003}:3003"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3003/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: apps/api-gateway/Dockerfile
+    ports:
+      - "${API_GATEWAY_PORT:-3000}:3000"
+    environment:
+      - API_GATEWAY_PORT=3000
+      - AGENT_SERVICE_URL=http://agent-service:3002
+      - AUTH_SERVICE_URL=http://auth-service:3003
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:80}
+      - GATEWAY_TIMEOUT_MS=${GATEWAY_TIMEOUT_MS:-5000}
+    depends_on:
+      agent-service:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  web-dashboard:
+    build:
+      context: .
+      dockerfile: apps/web-dashboard/Dockerfile
+    ports:
+      - "${WEB_DASHBOARD_PORT:-80}:80"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  agent-data:
+
+networks:
+  app-network:
+    driver: bridge

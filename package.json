@@ -1,0 +1,55 @@
+{
+  "name": "ai-agency-simulator",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "lint": "eslint .",
+    "test": "pnpm -r run test",
+    "typecheck": "pnpm -r run typecheck",
+    "launcher:build": "powershell -ExecutionPolicy Bypass -File ./scripts/build-windows-launcher.ps1",
+    "launcher:start": "start ./dist/windows/AiAgencySimulator.exe --start",
+    "launcher:stop": "start ./dist/windows/AiAgencySimulator.exe --stop",
+    "launcher:status": "start ./dist/windows/AiAgencySimulator.exe --status"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@11.9.0",
+  "dependencies": {
+    "@howaboua/pickle-thinker": "^0.4.0",
+    "@hueyexe/opencode-ensemble": "^0.16.0",
+    "@ishaksebsib/opencode-tree": "^0.4.2",
+    "@morphllm/opencode-morph-plugin": "^2.0.16",
+    "@prevalentware/opencode-goal-plugin": "^0.1.28",
+    "@renjfk/opencode-voice": "^0.6.0",
+    "@zenobius/opencode-background": "0.1.0-alpha.2",
+    "@zenobius/opencode-skillful": "^1.2.5",
+    "opencode-auto-resume": "^1.1.3",
+    "opencode-autosave-conversation": "^1.1.0",
+    "opencode-beads": "^0.7.0",
+    "opencode-browser": "^1.2.3",
+    "opencode-chrome-devtools": "^1.0.4",
+    "opencode-gemini-auth": "^1.4.15",
+    "opencode-goal-plugin": "^0.6.6",
+    "opencode-kiro-auth": "^1.0.0",
+    "opencode-plugin-litellm": "^0.7.0",
+    "opencode-pty": "^0.3.6",
+    "opencode-rag-plugin": "^1.19.1",
+    "opencode-ralph-loop": "^1.0.10",
+    "opencode-relay": "^0.0.10",
+    "opencode-rules": "^0.6.4",
+    "opencode-sessions": "^1.0.0",
+    "opencode-swarm": "^7.132.1",
+    "opencode-websearch-cited": "^1.2.0",
+    "spotme": "^1.2.3"
+  }
+}

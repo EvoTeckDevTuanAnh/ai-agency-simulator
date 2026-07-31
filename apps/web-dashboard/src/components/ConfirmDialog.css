@@ -1,0 +1,35 @@
+.confirm-dialog {
+  min-width: 320px;
+}
+
+.confirm-dialog h2 {
+  margin: 0 0 0.75rem;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+}
+
+.confirm-dialog p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+}
+
+.btn-danger-confirm {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #e74c3c;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.btn-danger-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-danger-confirm:hover:not(:disabled) {
+  background: #c0392b;
+}

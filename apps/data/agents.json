@@ -1,0 +1,14 @@
+{
+  "agents": [
+    {
+      "id": "director-001",
+      "sequenceNumber": 0,
+      "name": "Director",
+      "role": "DIRECTOR",
+      "status": "WORKING",
+      "isDirector": true,
+      "createdAt": "2026-07-30T21:47:05.646Z"
+    }
+  ],
+  "nextSequenceNumber": 1
+}

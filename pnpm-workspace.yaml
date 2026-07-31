@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  '@nestjs/core': true
+  esbuild: true
+  '@nestjs/cli': true
+  msgpackr-extract: true
+  opencode-rag-plugin: true
